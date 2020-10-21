@@ -1,0 +1,11 @@
+﻿@inherits ModelWebViewPage<TReservation>
+@{
+    ViewBag.Title = "Reservas Painel - Cadastrar";
+    Layout = "~/Areas/Painel/Views/Shared/_Layout.cshtml";
+}
+<h2>
+    Reservas- Cadastrar
+</h2>
+
+@Html.Partial("_form", Model)
+

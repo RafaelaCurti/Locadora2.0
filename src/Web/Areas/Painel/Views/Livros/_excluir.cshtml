@@ -1,0 +1,30 @@
+﻿@model TBook
+<div id="myModal" class="modal fade">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-tittle">Excluir livro</h4>
+        </div>
+        <div class="modal-body">
+            <p>Deseja realmente excluir o livro?</p>
+            <br />
+            <span><strong>Título</strong>: @Model.Title</span><br />
+            <span><strong>Páginas</strong>: @Model.Pages</span><br />
+            <span><strong>Autor</strong>: @Model.Author</span><br />
+            <span><strong>Edição</strong>: @Model.Edition</span><br />
+            <span><strong>Ano</strong>: @Model.Year</span>
+        </div>
+        <div class="modal-footer">
+            @using (Html.BeginForm())
+            {
+                <button class="btn" data-dismiss="modal" aria-hidden="true">
+                    Não
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    Sim
+                </button>
+            }
+        </div>
+    </div>
+
+</div>

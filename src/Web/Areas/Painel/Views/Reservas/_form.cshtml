@@ -1,0 +1,115 @@
+﻿@inherits ModelWebViewPage<TReservation>
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        <div class="col-lg-12">
+            @this.Label(x => x.Client).Class("control-label").Value("Clientes:")
+            @this.AutoSelect(x => x.Client).Class("form-control").FirstOption("", "Selecione uma opção")
+        </div>
+        <div class="col-lg-12">
+            @this.Label(x => x.Itens).Class("control-label").Value("Filme:")
+            @this.AutoSelect(x => x.Itens).Class("form-control").FirstOption("", "Selecione uma opção")
+        </div>
+        <div class="col-lg-12">
+            @foreach (var iten in Model.TItens)
+            {
+                @Html.Partial("_listar-filmes", iten.Movie)
+            }
+        </div>
+        <div class="col-lg-12 item">
+        </div>
+        <div class="col-lg-12">
+            @this.Label(x => x.Withdraw).Class("control-label").Value("Retirar:")
+            @this.DatePicker(x => x.Withdraw).Class("required form-control").Value(Model.Id == 0 ? DateTime.Now : Model.Withdraw)
+            @Html.ValidationMessageFor(x => x.Withdraw)
+        </div>
+        <div class="col-lg-12">
+            @this.Label(x => x.Devolution).Class("control-label").Value("Devolução:")
+            @this.DatePicker(x => x.Devolution).Class("required form-control").Value(Model.Id == 0 ? DateTime.Now.AddDays(7) : Model.Devolution)
+            @Html.ValidationMessageFor(x => x.Devolution)
+        </div>
+        <div class="col-md-12 text-center" style="margin-top: 15px;">
+            <button type="button" class="btn btn-info btn-lg" onclick="location.href='@Url.Action(MVC.Painel.Reservas.Index())'">
+                <i class="fas fa-times"></i> Voltar
+            </button>
+            <button type="submit" class="btn btn-primary btn-lg">
+                <i class="fas fa-check"></i> Salvar
+            </button>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("form").validate();
+        $("select#Itens").change(function () {
+            var id = $(this).val();
+            $.post("@Url.Action(MVC.Painel.Reservas.ListarFilmes())", { id: id }, function (data) {
+                $("div.item").append(data);
+                $("select#Itens option[value = " + id + "]").remove();
+            });
+        });
+        $("a.excluir-filmes").livequery("click", function () {
+            var id = $(this).parents("div.item-item").find("input.id-item").val();
+            $(this).parents("div.item-item").remove();
+            $("select#Itens").append("<option value=" + id + ">" + $(this).data("nome") + "</option>");
+        });
+
+    });
+</script>
+@*@inherits ModelWebViewPage<TReservation>
+    <div class="row">
+        @using (Html.BeginForm())
+        {
+            <div class="col-lg-12">
+                @this.Label(x => x.Client).Class("control-label").Value("Clientes:")
+                @this.AutoSelect(x => x.Client).Class("form-control").FirstOption("", "Selecione uma opção")
+            </div>
+            <div class="col-lg-12">
+                @this.Label(x => x.Itens).Class("control-label").Value("Filme:")
+                @this.AutoSelect(x => x.Itens).Attr("name", "Itensreserva").Class("form-control").FirstOption("", "Selecione uma opção")
+            </div>
+            <div class="col-lg-12">
+                @foreach (var itens in Model.TItens)
+                {
+                    @Html.Partial("_listar-filmes", itens.Movie)
+                }
+            </div>
+            <div class="col-lg-12 item"></div>
+            <div class="col-lg-12">
+                @this.Label(x => x.Withdraw).Class("control-label").Value("Retirar:")
+                @this.DatePicker(x => x.Withdraw).Class("required form-control").Value(Model.Id == 0 ? DateTime.Now : Model.Withdraw)
+                @Html.ValidationMessageFor(x => x.Withdraw)
+            </div>
+            <div class="col-lg-12">
+                @this.Label(x => x.Devolution).Class("control-label").Value("Devolução:")
+                @this.DatePicker(x => x.Devolution).Class("required form-control").Value(Model.Id == 0 ? DateTime.Now.AddDays(7) : Model.Devolution)
+                @Html.ValidationMessageFor(x => x.Devolution)
+            </div>
+            <div class="col-md-12 text-center" style="margin-top: 15px;">
+                <button type="button" class="btn btn-info btn-lg" onclick="location.href='@Url.Action(MVC.Painel.Reservas.Index())'">
+                    <i class="fas fa-times"></i> Voltar
+                </button>
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="fas fa-check"></i> Salvar
+                </button>
+            </div>
+        }
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $("form").validate();
+            $("select#Itensreserva").change(function () {
+                var id = $(this).val();
+                $.post("@Url.Action(MVC.Painel.Reservas.ListarFilmes())", { id: id }, function (data) {
+                    $("div.item").append(data);
+                    $("select#Itensreserva option[value = " + id + "]").remove();
+                });
+            });
+            $("a.excluir-filmes").livequery("click", function () {
+                var id = $(this).parents("div.item-item").find("input.id-item").val();
+                $(this).parents("div.item-item").remove();
+                $("select#Itensreserva").append("<option value=" + id + ">" + $(this).data("nome") + "</option>");
+            });
+
+        });
+    </script>*@

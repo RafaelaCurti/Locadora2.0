@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Locadora.Domain">
+  <class name="Locadora.Domain.TBook, Locadora.Model" table="t_books" schema="dbo" >
+        <id name="Id" column="id">
+      <generator class="native" />
+    </id>
+         
+    <property name="Title">
+      <column name="title" length="255" sql-type="nvarchar" />
+    </property>
+    <property name="Pages">
+      <column name="pages" length="4" sql-type="int" />
+    </property>
+    <property name="Author">
+      <column name="author" length="255" sql-type="nvarchar" />
+    </property>
+    <property name="Edition">
+      <column name="edition" length="4" sql-type="int" />
+    </property>
+    <property name="Year">
+      <column name="year" length="4" sql-type="int" />
+    </property>
+
+
+  </class>
+</hibernate-mapping>

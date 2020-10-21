@@ -1,0 +1,11 @@
+﻿@inherits ModelWebViewPage<TClient>
+@{
+    ViewBag.Title = "Cliente - Editar";
+    Layout = "~/Areas/Cliente/Views/Shared/_Layout.cshtml";
+}
+<h2>
+    @Model.Name - Editar
+</h2>
+
+@Html.Partial("_form", Model)
+  

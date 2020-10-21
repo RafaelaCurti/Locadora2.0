@@ -1,0 +1,10 @@
+﻿@inherits ModelWebViewPage<TBook>
+@{
+    ViewBag.Title = "Livros Painel - Cadastrar";
+    Layout = "~/Areas/Painel/Views/Shared/_Layout.cshtml";
+}
+<h2>
+    Livros - Cadastrar
+</h2>
+
+@Html.Partial("_form", Model)

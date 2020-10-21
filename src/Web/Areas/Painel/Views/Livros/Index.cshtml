@@ -1,0 +1,86 @@
+﻿@model List<TBook>
+@{
+    ViewBag.Title = "Index Painel";
+    Layout = "~/Areas/Painel/Views/Shared/_Layout.cshtml";
+}
+<h2>
+    Livros
+</h2>
+<div class="row" style="margin: 30px 0; text-align: right">
+    <div class="col-lg-12 text-right">
+        <a class="btn btn-primary btn-lg" data-toggle="tooltip" title="Cadastrar"
+           href="@Url.Action(MVC.Painel.Livros.Cadastrar())">
+            <i class="fas fa-plus"></i> Cadastrar
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <table class="table table-bordered table-hover tablesorter">
+            <thead>
+                <tr>
+                    <th class="header">
+                        Título
+                    </th>
+                    <th class="header">
+                        Páginas
+                    <th class="header">
+                        Autor
+                    </th>
+                    <th class="header">
+                        Edição
+                    </th>
+                    <th class="header">
+                        Ano
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.Title
+                            </td>
+                            <td>
+                                @item.Pages
+                            </td>
+                            <td>
+                                @item.Author
+                            </td>
+                            <td>
+                                @item.Edition
+                            </td>
+                            <td>
+                                @item.Year
+                            </td>
+                            <td class="text-center">
+                                <p>
+                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" title="Editar"
+                                       href="@Url.Action(MVC.Painel.Livros.Editar(item.Id))">
+                                        <i class="fas fa-pencil"></i> Editar
+                                    </a>
+                                    <button type="button" class="btn btn-danger btn-xs ajax-modal" data-toggle="tooltip" title="Excluir"
+                                            href="@Url.Action(MVC.Painel.Livros.Excluir(item.Id))">
+                                        <i class="fas fa-trash"></i> Excluir
+                                    </button>
+                                </p>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="15" class="text-center">
+                            <strong>Nenhum registro encontrado</strong>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
