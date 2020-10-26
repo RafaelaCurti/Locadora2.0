@@ -1,5 +1,7 @@
-﻿@model List<TClient>
+﻿@model Simple.Entities.Page<TClient>
+@*@model List<TClient>*@
 @{
+    ViewBag.Title = "Locadora - Cliente";
     ViewBag.Title = "Index";
     Layout = "~/Areas/Cliente/Views/Shared/_Layout.cshtml";
 }
@@ -68,3 +70,157 @@
         </table>
     </div>
 </div>
+@*@if (Model.TotalCount > 10)
+{
+    var dictionary = new Dictionary<Int32, Int32>();
+    dictionary.Add(Model.TotalCount, 10);
+    @Html.Partial("_pagination", dictionary)
+    <script type="text/javascript">
+        $(function () {
+            $(".paginate").click(function () {
+                var pagina = $(this).prop("id").split('-')[1];
+                var nome = $("#Nome").val();
+                var perfil = $("#Perfil").val();
+                var login = $("#Login").val();
+                var email = $("#Email").val();
+                var preference = $("#")
+                $('table.table-bordered tbody').html("<tr><td class='text-center' colspan='15'><img src='@Links.Content.images.loading_gif' alt='loading' style='margin: 15px auto;'/></td></tr>");
+                $('.pagination').remove();
+                $.get("@(Url.Action(MVC.Painel.Clientes.Buscar()))", { pagina: pagina, nome: nome, patrocinador: patrocinador, estado: estado, cidade: cidade, perfil: perfil, login: login, cpf: cpf, inativo: cancelados, email: email, bloqueado: bloqueados, pais: pais, tipoPessoa: tipoPessoa }, function (data) {
+                    $('div.table-responsive').html(data);
+                });
+            });
+        });
+    </script>
+}*@
+
+@*
+                        <td class="text-center nowrap">
+                            @item.CreationDate.DayMonthAndYearWithHours()
+                        </td>
+                        <td class="text-center nowrap">
+                            @(item.EnumProfile == MaravilhasTerra.Domain.Profile.Consultant ? item.IsFranchiseActive.YesOrNo() : new MvcHtmlString("-"))
+                        </td>
+                        <td class="text-center nowrap">
+                            <a href="@Url.Action(MVC.Painel.Clientes.Visualizar(item.Id))" class="btn btn-info btn-xs"
+                               data-toggle="tooltip" title="@(idioma.LblVisualizar)" target="_blank">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            @if (permissoes.Contains(Permission.ClientsViewLogs))
+                            {
+                                <a href="@Url.Action(MVC.Painel.Clientes.VisualizarLogs(item.Id))" class="btn btn-info btn-xs ajax-modal"
+                                   data-toggle="tooltip" title="Visualizar logs">
+                                    <i class="fas fa-list-ul"></i>
+                                </a>
+                            }
+                            @if (!item.IsCanceled && permissoes.Contains(Permission.ClientsAccessBackOffice))
+                            {
+                                if (item.EnumProfile == MaravilhasTerra.Domain.Profile.Consumer)
+                                {
+                                    <a href="@Url.SubdomainUrl(SubdomainConstants.Store, MVC.Loja.Clientes.LoginSomenteLeitura(item.Username, usuario.Username))"
+                                       target="_blank" class="btn btn-info btn-xs" data-toggle="tooltip" title="Acessar loja">
+                                        <i class="fas fa-wrench"></i>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="@Url.SubdomainUrl(SubdomainConstants.Backoffice, MVC.Ev.Home.LoginSomenteLeitura(item.Username, usuario.Username))"
+                                       target="_blank" class="btn btn-info btn-xs" data-toggle="tooltip" title="Acessar escritório">
+                                        <i class="fas fa-wrench"></i>
+                                    </a>
+                                }
+                            }
+                            @if (!item.IsCanceled && item.EnumProfile == MaravilhasTerra.Domain.Profile.Consultant)
+                            {
+                                <a href="@Url.Action(MVC.Painel.Clientes.VisualizarLinhaAscendente(item.Id))" class="btn btn-xs btn-info ajax-modal"
+                                   data-toggle="tooltip" title="Linha ascendente">
+                                    <i class="fas fa-sitemap"></i>
+                                </a>
+                            }
+                            <a href="@Url.Action(MVC.Painel.Clientes.VisualizarDocumentos(item.Id))" class="btn btn-info btn-xs"
+                               data-toggle="tooltip" title="Documentos" target="_blank">
+                                <i class="fas fa-id-card"></i>
+                            </a>
+                            @if (permissoes.Contains(Permission.ClientsChange))
+                            {
+                                <a href="@Url.Action(MVC.Painel.Clientes.EditarLogin(item.Id))" class="btn btn-primary btn-xs ajax-modal"
+                                   data-toggle="tooltip" title="Editar login">
+                                    <i class="fas fa-user-edit"></i>
+                                </a>
+                                if (!item.IsCanceled)
+                                {
+                                    <a href="@Url.Action(MVC.Painel.Clientes.Editar(item.Id))" class="btn btn-primary btn-xs"
+                                       data-toggle="tooltip" title="@(idioma.LblEditar)" target="_blank">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                }
+                            }
+                            @if (!item.IsCanceled && permissoes.Contains(Permission.ClientsDelete) && !item.IsFranchiseActive &&
+                                !item.TClientsAtTClientsTClientsIndicatorFk.Any() && !item.TOrdersAtTOrdersTClientsFk.Any())
+                            {
+                                <button type="button" class="btn btn-danger btn-xs ajax-modal" data-toggle="tooltip" title="@(idioma.LblExcluir)"
+                                        href="@Url.Action(MVC.Painel.Clientes.Excluir(item.Id))">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            }
+                            @if (item.IsCanceled)
+                            {
+                                if (permissoes.Contains(Permission.FinancialExtractClients))
+                                {
+                                    <a href="@Url.Action(MVC.Painel.Clientes.VisualizarSaldo(item.Id))" class="btn btn-xs btn-info ajax-modal"
+                                       data-toggle="tooltip" title="Visualizar saldo">
+                                        <i class="fas fa-dollar-sign"></i>
+                                    </a>
+                                }
+                                if (permissoes.Contains(Permission.AdminActiveClient))
+                                {
+                                    <a href="@Url.Action(MVC.Painel.Clientes.Reativar(item.Id))" class="btn btn-xs btn-primary ajax-modal"
+                                       data-toggle="tooltip" title="Reativar">
+                                        <i class="fas fa-check"></i>
+                                    </a>
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="15" class="text-center">
+                        @idioma.MsgNenhumRegistroEncontrado
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @if (Model.TotalCount > 10)
+    {
+        var dictionary = new Dictionary<Int32, Int32>();
+        dictionary.Add(Model.TotalCount, 10);
+        @Html.Partial("_pagination", dictionary)
+        <script type="text/javascript">
+            $(function () {
+                $(".paginate").click(function () {
+                    var pagina = $(this).prop("id").split('-')[1];
+                    var nome = $("#Nome").val();
+                    var estado = $("#Estado").val();
+                    var patrocinador = $("#Patrocinador").val();
+                    var cidade = $("#Cidade").val();
+                    var perfil = $("#Perfil").val();
+                    var login = $("#Login").val();
+                    var cpf = $("#Cpf").val();
+                    var email = $("#Email").val();
+                    var cancelados = $("#Cancelados").prop("checked");
+                    var bloqueados = $("#Bloqueados").prop("checked");
+                    var pais = $("#Pais").val();
+                    var tipoPessoa = $("#TipoPessoa").val();
+                    $('table.table-bordered tbody').html("<tr><td class='text-center' colspan='15'><img src='@Links.Content.images.loading_gif' alt='loading' style='margin: 15px auto;'/></td></tr>");
+                    $('.pagination').remove();
+                    $.get("@(Url.Action(MVC.Painel.Clientes.Buscar()))", { pagina: pagina, nome: nome, patrocinador: patrocinador, estado: estado, cidade: cidade, perfil: perfil, login: login, cpf: cpf, inativo: cancelados, email: email, bloqueado: bloqueados, pais: pais, tipoPessoa: tipoPessoa }, function (data) {
+                        $('div.table-responsive').html(data);
+                    });
+                });
+            });
+        </script>
+    }*@*@

@@ -18,55 +18,57 @@ using System.Web.Security;
 namespace Locadora.Web.Areas.Cliente.Controllers
 {
 
-    [RequiresAuthorization]
+
     public partial class ClientesController : BaseController
     {
         public virtual ActionResult Login()
         {
             return View();
         }
-        //public virtual ActionResult Editar()   
-        //{
-        //    var usuarioLogado = (TClient)ViewBag.Cliente;
-        //    var preferenciasCliente = usuarioLogado.TPreferences.Select(x => x.Category.Id).ToList();
-        //    ViewBag.MostraSenha = false;
-        //    ViewBag.EnumProfileClient = EnumHelper.ListAll<ProfileClient>().ToSelectList(x => x, x => x.Description());
-        //    ViewBag.Category = TCategory.List(x => !preferenciasCliente.Contains(usuarioLogado.Id)).ToSelectList(x => x.Id, x => x.Name);
-        //    ViewBag.Genero = TMovieCategory.ListAll().ToSelectList(x => x.Category.Id, x => x.Category.Name);
-        //    return View(usuarioLogado);
-        //}
 
-        //[HttpPost]
-        //public virtual ActionResult Editar(TClient clienteEditando)
-        //{
-        //    try
-        //    {
-        //        var usuarioLogado = (TClient)ViewBag.Cliente;
-        //        usuarioLogado.Edit();
-        //        TPreference.SavePreferences(usuarioLogado);
-        //        TempData["Alerta"] = new Alert("success", "Seu perfil foi editado com sucesso");
-        //        return RedirectToAction(MVC.Cliente.Home.Index());
-        //    }
-        //    catch (SimpleValidationException ex)
-        //    {
-        //        ViewBag.MostraSenha = false;
-        //        ViewBag.EnumProfileClient = EnumHelper.ListAll<ProfileClient>().ToSelectList(x => x, x => x.Description());
-        //        ViewBag.Category = TCategory.ListAll().ToSelectList(x => x.Id, x => x.Name);
-        //        return HandleViewException(clienteEditando, ex);
-        //    }
-        //}
-        //public virtual ActionResult ListarPreferencia(int id)
-        //{
-        //    var preference = TCategory.Load(id);
-        //    return PartialView("_listar-preferencias", preference);
-        //}
+        public virtual ActionResult Cadastrar()
+        {
+            var cliente = new TClient();
+            ViewBag.MostraSenha = true;
+            ViewBag.EnumProfileClient = EnumHelper.ListAll<ProfileClient>().ToSelectList(x => x, x => x.Description());
+            ViewBag.Genero = TCategory.ListAll().ToSelectList(x => x.Id, x => x.Name);
+            return View(cliente);
+        }
+
+        [HttpPost]
+        public virtual ActionResult Cadastrar(TClient model)
+        {
+            try
+            {
+                model.Password = TClient.HashPassword(model.PasswordString);
+                model.Save();
+                TPreference.SavePreferences(model);
+                TempData["Alerta"] = new Alert("success", "Cliente editado com sucesso");
+                return RedirectToAction(MVC.Cliente.Home.Login());
+            }
+            catch (SimpleValidationException ex)
+            {
+                ViewBag.MostraSenha = true;
+                ViewBag.EnumProfileClient = EnumHelper.ListAll<ProfileClient>().ToSelectList(x => x, x => x.Description());
+                TempData["Alerta"] = new Alert("error", "Você não pode ser cadastrado");
+                return HandleViewException(model, ex);
+            }
+
+        }
+        public virtual ActionResult ListarPreferencia(int id)
+        {
+            var preference = TCategory.Load(id);
+            return PartialView("_listar-preferencias", preference);
+        }
+
+        [RequiresAuthorization]
         public virtual ActionResult Editar()
         {
             var usuarioLogado = (TClient)ViewBag.Cliente;
             ViewBag.MostraSenha = false;
             var preferenciasCliente = usuarioLogado.TPreferences.Select(x => x.Category.Id).ToList();
             ViewBag.EnumProfileClient = EnumHelper.ListAll<ProfileClient>().ToSelectList(x => x, x => x.Description());
-            ViewBag.Genero = TCategory.List( x=> !preferenciasCliente.Contains(usuarioLogado.Id)).ToSelectList(x => x.Id, x => x.Name);
+            ViewBag.Genero = TCategory.List(x => !preferenciasCliente.Contains(usuarioLogado.Id)).ToSelectList(x => x.Id, x => x.Name);
             return View(usuarioLogado);
         }
 
@@ -76,16 +78,19 @@ namespace Locadora.Web.Areas.Cliente.Controllers
             try
             {
                 var usuarioLogado = (TClient)ViewBag.Cliente;
-                //new TClient = TClient.Load(usuarioLogado);
-                usuarioLogado.Name = model.Name;
-                usuarioLogado.Email = model.Email;
-                usuarioLogado.Telephone = model.Telephone;
-                usuarioLogado.EnumProfileClient = model.EnumProfileClient;
-                usuarioLogado.Preference = model.Preference;
-                usuarioLogado.Update();
+                model.Id = usuarioLogado.Id;
+                var cliente = TClient.Load(usuarioLogado.Id);
+                cliente.Name = model.Name;
+                cliente.Email = model.Email;
+                cliente.Telephone = model.Telephone;
+                cliente.EnumProfileClient = model.EnumProfileClient;
+                cliente.Preference = model.Preference;
+                cliente.Update();
+                TPreference.SavePreferences(model);
                 TempData["Alerta"] = new Alert("success", "Cliente editado com sucesso");
-                //TempData["Alerta"] = new Alert("success", "Seu cliente foi ceditado com sucesso");
                 return RedirectToAction(MVC.Cliente.Home.Index());
+
+
             }
             catch (SimpleValidationException ex)
             {
@@ -96,11 +101,7 @@ namespace Locadora.Web.Areas.Cliente.Controllers
                 return HandleViewException(model, ex);
             }
         }
-        public virtual ActionResult ListarPreferencia(int id)
-        {
-            var preference = TCategory.Load(id);
-            return PartialView("_listar-preferencias", preference);
-        }
+
         [HttpPost]
         public virtual ActionResult Login(object diff)
         {
@@ -114,6 +115,7 @@ namespace Locadora.Web.Areas.Cliente.Controllers
                 ModelState.AddModelError(item.PropertyName, item.Message);
             return View(model);
         }
+
         public virtual ActionResult Logout()
         {
             FormsAuthentication.SignOut();

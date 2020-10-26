@@ -1,37 +1,32 @@
-﻿
+﻿@model List<TClient>
 @{
     ViewBag.Title = "Locadora - Cliente";
+    ViewBag.Title = "Index";
     Layout = "~/Areas/Cliente/Views/Shared/_Layout.cshtml";
-    var cliente = (TClient)ViewBag.Cliente;
 }
+<h2>
 
-<h2>Painel do(a) @cliente.Name</h2>
-
-<h3>
-    Seus filmes de acordo com suas preferências
-</h3>
+    Clientes
+</h2>
 <div class="row">
     <div class="col-lg-12">
         <table class="table table-bordered table-hover tablesorter">
             <thead>
                 <tr>
                     <th class="header">
-                        Código
-                    </th>
-                    <th class="header">
                         Nome
                     </th>
                     <th class="header">
-                        Gêneros
+                        Email
                     </th>
                     <th class="header">
-                        Duração
+                        Telefone
                     </th>
                     <th class="header">
-                        Estoque
+                        Login
                     </th>
                     <th class="header">
-                        Valor
+                        Preferências
                     </th>
                 </tr>
             </thead>
@@ -42,25 +37,23 @@
                     {
                         <tr>
                             <td>
-                                @item.Code
+                                @ViewBag.Cliente.Name
                             </td>
                             <td>
-                                @item.Name
+                                @item.Email
                             </td>
                             <td>
-                                @foreach (var genero in item.TMovieCategories)
+                                @item.Telephone
+                            </td>
+                            <td>
+                                @item.Login
+                            </td>
+                            <td>
+                                @foreach (var genero in item.TPreferences)
                                 {
                                     <span>- @genero.Category.Name</span>
                                 }
                             </td>
-                            <td>
-                                @item.Duration
-                            </td>
-                            <td>
-                                @item.Value
-                            </td>
-                            <td>
-                                @item.Stock
                         </tr>
                     }
                 }

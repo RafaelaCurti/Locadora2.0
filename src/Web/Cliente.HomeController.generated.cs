@@ -59,6 +59,12 @@ namespace Locadora.Web.Areas.Cliente.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ListarGenero()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ListarGenero);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public HomeController Actions { get { return MVC.Cliente.Home; } }
@@ -76,6 +82,7 @@ namespace Locadora.Web.Areas.Cliente.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string ListarGenero = "ListarGenero";
             public readonly string Login = "Login";
         }
 
@@ -83,10 +90,19 @@ namespace Locadora.Web.Areas.Cliente.Controllers
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string ListarGenero = "ListarGenero";
             public const string Login = "Login";
         }
 
 
+        static readonly ActionParamsClass_ListarGenero s_params_ListarGenero = new ActionParamsClass_ListarGenero();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ListarGenero ListarGeneroParams { get { return s_params_ListarGenero; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ListarGenero
+        {
+            public readonly string id = "id";
+        }
         static readonly ActionParamsClass_Login s_params_Login = new ActionParamsClass_Login();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Login LoginParams { get { return s_params_Login; } }
@@ -105,9 +121,13 @@ namespace Locadora.Web.Areas.Cliente.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _form = "_form";
+                public readonly string _listar_generos = "_listar-generos";
                 public readonly string Index = "Index";
                 public readonly string Login = "Login";
             }
+            public readonly string _form = "~/Areas/Cliente/Views/Home/_form.cshtml";
+            public readonly string _listar_generos = "~/Areas/Cliente/Views/Home/_listar-generos.cshtml";
             public readonly string Index = "~/Areas/Cliente/Views/Home/Index.cshtml";
             public readonly string Login = "~/Areas/Cliente/Views/Home/Login.cshtml";
         }
@@ -130,14 +150,14 @@ namespace Locadora.Web.Areas.Cliente.Controllers
         }
 
         [NonAction]
-        partial void LoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Locadora.Domain.Login model);
+        partial void ListarGeneroOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Login(Locadora.Domain.Login model)
+        public override System.Web.Mvc.ActionResult ListarGenero(int id)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Login);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            LoginOverride(callInfo, model);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ListarGenero);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            ListarGeneroOverride(callInfo, id);
             return callInfo;
         }
 
@@ -149,6 +169,18 @@ namespace Locadora.Web.Areas.Cliente.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Login);
             LoginOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void LoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Locadora.Domain.Login model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Login(Locadora.Domain.Login model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Login);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            LoginOverride(callInfo, model);
             return callInfo;
         }
 

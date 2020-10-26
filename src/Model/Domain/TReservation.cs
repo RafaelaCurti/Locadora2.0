@@ -11,6 +11,7 @@ namespace Locadora.Domain
         //public virtual List<TMovie> Iten { get; set; }
         public virtual StatusSale Sales { get; set; }
         public virtual int[] Itens { get; set; }
+        public virtual int[] Quantities { get; set; }
 
     }
 

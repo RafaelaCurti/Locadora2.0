@@ -1,11 +1,23 @@
-﻿@inherits ModelWebViewPage<TClient>
+﻿@*@inherits ModelWebViewPage<TClient>
+    @{
+        ViewBag.Title = "Cliente - Editar";
+        Layout = "~/Areas/Cliente/Views/Shared/_Layout.cshtml";
+    }
+    <h2>
+        @Model.Name - Editar
+    </h2>
+
+    @Html.Partial("_form", Model)*@
+@inherits ModelWebViewPage<TClient>
 @{
-    ViewBag.Title = "Cliente - Editar";
+    var cliente = (TClient)ViewBag.Cliente;
+    ViewBag.Title = "Clientes - Editar";
     Layout = "~/Areas/Cliente/Views/Shared/_Layout.cshtml";
 }
 <h2>
-    @Model.Name - Editar
+    Cliente @cliente.Name Editar
 </h2>
 
 @Html.Partial("_form", Model)
-  
+
+

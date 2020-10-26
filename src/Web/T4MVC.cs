@@ -51,7 +51,6 @@ namespace T4MVC
         public Locadora.Web.Areas.Cliente.Controllers.ItensController Itens = new Locadora.Web.Areas.Cliente.Controllers.T4MVC_ItensController();
         public Locadora.Web.Areas.Cliente.Controllers.LivrosController Livros = new Locadora.Web.Areas.Cliente.Controllers.T4MVC_LivrosController();
         public Locadora.Web.Areas.Cliente.Controllers.ReservasController Reservas = new Locadora.Web.Areas.Cliente.Controllers.T4MVC_ReservasController();
-        public Locadora.Web.Areas.Cliente.Controllers.UtenteController Utente = new Locadora.Web.Areas.Cliente.Controllers.T4MVC_UtenteController();
         public T4MVC.Cliente.SharedController Shared = new T4MVC.Cliente.SharedController();
     }
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

@@ -127,13 +127,7 @@ namespace Locadora.Web.Areas.Cliente.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string _form = "_form";
-                public readonly string _listar_generos = "_listar-generos";
-                public readonly string Index = "Index";
             }
-            public readonly string _form = "~/Areas/Cliente/Views/Filmes/_form.cshtml";
-            public readonly string _listar_generos = "~/Areas/Cliente/Views/Filmes/_listar-generos.cshtml";
-            public readonly string Index = "~/Areas/Cliente/Views/Filmes/Index.cshtml";
         }
     }
 

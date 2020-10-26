@@ -82,8 +82,9 @@ namespace Locadora.Web.Areas.Cliente.Controllers
         public class ActionNamesClass
         {
             public readonly string Login = "Login";
-            public readonly string Editar = "Editar";
+            public readonly string Cadastrar = "Cadastrar";
             public readonly string ListarPreferencia = "ListarPreferencia";
+            public readonly string Editar = "Editar";
             public readonly string Logout = "Logout";
         }
 
@@ -91,17 +92,18 @@ namespace Locadora.Web.Areas.Cliente.Controllers
         public class ActionNameConstants
         {
             public const string Login = "Login";
-            public const string Editar = "Editar";
+            public const string Cadastrar = "Cadastrar";
             public const string ListarPreferencia = "ListarPreferencia";
+            public const string Editar = "Editar";
             public const string Logout = "Logout";
         }
 
 
-        static readonly ActionParamsClass_Editar s_params_Editar = new ActionParamsClass_Editar();
+        static readonly ActionParamsClass_Cadastrar s_params_Cadastrar = new ActionParamsClass_Cadastrar();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Editar EditarParams { get { return s_params_Editar; } }
+        public ActionParamsClass_Cadastrar CadastrarParams { get { return s_params_Cadastrar; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Editar
+        public class ActionParamsClass_Cadastrar
         {
             public readonly string model = "model";
         }
@@ -112,6 +114,14 @@ namespace Locadora.Web.Areas.Cliente.Controllers
         public class ActionParamsClass_ListarPreferencia
         {
             public readonly string id = "id";
+        }
+        static readonly ActionParamsClass_Editar s_params_Editar = new ActionParamsClass_Editar();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Editar EditarParams { get { return s_params_Editar; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Editar
+        {
+            public readonly string model = "model";
         }
         static readonly ActionParamsClass_Login s_params_Login = new ActionParamsClass_Login();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -133,11 +143,13 @@ namespace Locadora.Web.Areas.Cliente.Controllers
             {
                 public readonly string _form = "_form";
                 public readonly string _listar_preferencias = "_listar-preferencias";
+                public readonly string cadastrar = "cadastrar";
                 public readonly string editar = "editar";
                 public readonly string Index = "Index";
             }
             public readonly string _form = "~/Areas/Cliente/Views/Clientes/_form.cshtml";
             public readonly string _listar_preferencias = "~/Areas/Cliente/Views/Clientes/_listar-preferencias.cshtml";
+            public readonly string cadastrar = "~/Areas/Cliente/Views/Clientes/cadastrar.cshtml";
             public readonly string editar = "~/Areas/Cliente/Views/Clientes/editar.cshtml";
             public readonly string Index = "~/Areas/Cliente/Views/Clientes/Index.cshtml";
         }
@@ -156,6 +168,41 @@ namespace Locadora.Web.Areas.Cliente.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Login);
             LoginOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void CadastrarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Cadastrar()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Cadastrar);
+            CadastrarOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void CadastrarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Locadora.Domain.TClient model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Cadastrar(Locadora.Domain.TClient model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Cadastrar);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            CadastrarOverride(callInfo, model);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ListarPreferenciaOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ListarPreferencia(int id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ListarPreferencia);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            ListarPreferenciaOverride(callInfo, id);
             return callInfo;
         }
 
@@ -179,18 +226,6 @@ namespace Locadora.Web.Areas.Cliente.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Editar);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             EditarOverride(callInfo, model);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void ListarPreferenciaOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult ListarPreferencia(int id)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ListarPreferencia);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            ListarPreferenciaOverride(callInfo, id);
             return callInfo;
         }
 

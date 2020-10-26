@@ -27,7 +27,6 @@ namespace Locadora
         public bool IsAuthenticated { get { return _isAuthenticated; } }
 
         public UserSecurity User { get { return _user; } }
-        public UserSecurity Client { get { return _client; } }
         public SecurityContext Init(Func<IIdentity> identityGetter, bool isAdmin)
         {
             _identityGetter = identityGetter;
@@ -46,15 +45,15 @@ namespace Locadora
                 {
                     var model = TClient.FindByUsername(username);
                     if (model != null)
-                        _client = new UserSecurity(model);
+                        _user = new UserSecurity(model);
                 }
             }
             else
                 _user = null;
 
             // VERIFICAR COM MATHEUS SE É NECESSÁRIO. POIS SEMPRE QUE ESTIVERMOS NA ÁREA DE USUÁRIOS, A AUTENTICAÇÃO SERÁ FALSE E COM ISSO NÃO CONSEGUIREMOS ACESSAR AS OPÇÕES
-            //if (_client == null)
-            //    _isAuthenticated = false;
+            if (_user == null)
+                _isAuthenticated = false;
 
             return this;
         }

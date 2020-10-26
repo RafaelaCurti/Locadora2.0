@@ -33,10 +33,29 @@ namespace Locadora.Web.Areas.Cliente.Controllers
             }
         }
         public virtual ActionResult Index()
+        //{
+        //ViewBag.Genero = TMovieCategory.ListAll().ToSelectList(x => x.Category.Id, x => x.Category.Name);
+        //var model = ViewBag.Genero;
+        //var filmes = TMovie.ListAll();
+        //return View(filmes);
+
         {
-            var filmes = TMovie.ListAll().ToList();
+            List<TMovie> filmes;
+            var client = (TClient)ViewBag.Cliente;
+            var preferencias = client.TPreferences.Select(x => x.Category.Id).ToList();
+
+            if (preferencias.Count != 0)
+            {
+                filmes = TMovieCategory.List(x => preferencias.Contains(x.Category.Id)).Select(x => x.Movie).ToList();
+            }
+            else
+            {
+                filmes = TMovie.ListAll().ToList();
+            }
             return View(filmes);
         }
+
+        //}
         public virtual ActionResult ListarGenero(int id)
         {
             var genero = TCategory.Load(id);

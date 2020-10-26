@@ -11,7 +11,7 @@ namespace Locadora.Services
     {
         public void SaveIten(TReservation model)
         {
-            TIten.Delete(x => x.Movie.Id == model.Id);
+            TIten.Delete(x => x.Reservation.Id == model.Id);
             if (model.Itens != null)
             {
                 for (int i = 0; i < model.Itens.Length; i++)
@@ -21,7 +21,8 @@ namespace Locadora.Services
                         new TIten()
                         {
                             Reservation = model,
-                            Movie = TMovie.Load(model.Itens[i])
+                            Movie = TMovie.Load(model.Itens[i]),
+                            Quantity = model.Quantities[i]
                         }.Save();
                     }
                 }

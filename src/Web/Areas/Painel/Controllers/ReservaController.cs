@@ -23,22 +23,31 @@ namespace Locadora.Web.Areas.Painel.Controllers
             ViewBag.Itens = TMovie.ListAll().ToSelectList(x => x.Id, x => x.Name);
             return View(reserva);
         }
-
         [HttpPost]
         public virtual ActionResult Cadastrar(TReservation model)
         {
             try
+
             {
-                model.Save();
-                TIten.SaveIten(model);
-                //TempData["Alert"] = new Alert("success", "Sua reserva foi cadastrada com sucesso");
-                TempData["Alerta"] = new Alert("success", "Reserva cadastrada com sucesso");
-                return RedirectToAction("Index");
+                if (model.Itens != null && model.Itens.Length > 0)
+                {
+                    model.Save();
+                    TIten.SaveIten(model);
+                    TempData["Alerta"] = new Alert("success", "Reserva cadastrada com sucesso");
+                    return RedirectToAction("Index");
+                }
+                //}
+                else
+                {
+                    TempData["Alerta"] = new Alert("error", "Preencha o campo de filme  ");
+                    return RedirectToAction("Cadastrar");
+                }
+
             }
             catch (SimpleValidationException ex)
             {
                 //TempData["Alert"] = new Alert("error", "Sua reserva não foi cadastrada");
-                TempData["Alerta"] = new Alert("error", "Reserva não pode ser cadastrada com sucesso");
+                ViewBag.TempData["Alerta"] = new Alert("error", "Reserva não pode ser cadastrada com sucesso");
                 return HandleViewException(model, ex);
             }
         }
@@ -57,11 +66,18 @@ namespace Locadora.Web.Areas.Painel.Controllers
         {
             try
             {
-                model.Update();
-                TIten.SaveIten(model);
-                //TempData["Alert"] = new Alert("success", "Sua reserva foi editada com sucesso");
-                TempData["Alerta"] = new Alert("success", "Reserva editada com sucesso");
-                return RedirectToAction("Index");
+                if (model.Itens != null && model.Itens.Length > 0)
+                {
+                    model.Update();
+                    TIten.SaveIten(model);
+                    TempData["Alerta"] = new Alert("success", "Reserva editada com sucesso");
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["Alerta"] = new Alert("error", "Preencha o campo de filme");
+                    return RedirectToAction("Editar");
+                }
             }
             catch (SimpleValidationException ex)
             {

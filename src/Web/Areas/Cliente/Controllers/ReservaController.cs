@@ -37,20 +37,47 @@ namespace Locadora.Web.Areas.Cliente.Controllers
         {
             try
             {
-                model.Client = (TClient)ViewBag.Cliente;
-                if (model.Itens == null)
+
+                {
+                    var usuarioLogado = (TClient)ViewBag.Cliente;
+                    model.Client = new TClient(usuarioLogado.Id);
+                    //for (int i = 0; i < model.Itens.Length; i++)
+
+                    //if (model.Itens.Any())
+                    if (model.Itens != null && model.Itens.Length > 0)
+                    //if (model.Itens[0] != 0)
                     {
-                        TempData["Alerta"] = new Alert("error", "Preencha o campo de filmes");
-                        return RedirectToAction("Cadastrar");
-                    }
-                else
-                    {
+                        //var usuarioLogado = (TClient)ViewBag.Cliente;
+                        //model.Id = usuarioLogado.Id;
+                        //var cliente = TClient.Load(usuarioLogado.Id);
+                        //cliente.Name = model.Name;
+                        //cliente.Email = model.Email;
+                        //cliente.Telephone = model.Telephone;
+                        //cliente.EnumProfileClient = model.EnumProfileClient;
+                        //cliente.Preference = model.Preference;
+                        //cliente.Update();
+                        //TPreference.SavePreferences(model);
+                        //TempData["Alerta"] = new Alert("success", "Cliente editado com sucesso");
+                        //return RedirectToAction(MVC.Cliente.Home.Index());
+
+                        //model.Update();
                         model.Save();
                         TIten.SaveIten(model);
                         TempData["Alerta"] = new Alert("success", "Reserva cadastrada com sucesso");
                         return RedirectToAction("Index");
                     }
+                    //else (model.Itens.Length < 0)
+                    else
+                    //(!model.Itens.Any())
+                    {
+                        TempData["Alerta"] = new Alert("error", "Preencha o campo de filme");
+                        return RedirectToAction("Cadastrar");
+                    }
+
+
+                }
             }
+
             catch (SimpleValidationException ex)
             {
                 TempData["Alerta"] = new Alert("error", "Sua reserva não pode ser cadastrada");

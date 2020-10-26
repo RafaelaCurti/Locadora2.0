@@ -76,7 +76,7 @@ namespace Locadora.Web.Areas.Painel.Controllers
             var cliente = TClient.Load(id);
             ViewBag.MostraSenha = false;
             ViewBag.EnumProfileClient = EnumHelper.ListAll<ProfileClient>().ToSelectList(x => x, x => x.Description());
-            ViewBag.Genero = TMovieCategory.ListAll().ToSelectList(x => x.Category.Id, x => x.Category.Name);
+            ViewBag.Genero = TCategory.ListAll().ToSelectList(x => x.Id, x => x.Name);
             return View(cliente);
         }
         [HttpPost]
@@ -117,85 +117,6 @@ namespace Locadora.Web.Areas.Painel.Controllers
             TClient.Delete(id);
             return RedirectToAction("Index");
         }
-        
-
-        //public virtual ActionResult Cadastrar()
-        //{
-        //    var cliente = new TClient();
-        //    ViewBag.MostraSenha = true;
-        //    ViewBag.EnumProfileClient = EnumHelper.ListAll<ProfileClient>().ToSelectList(x => x, x => x.Description());
-        //    ViewBag.Category = TMovieCategory.ListAll().ToSelectList(x => x.Id, x => x.Category.Name);
-        //    return View(cliente);
-        //}
-
-        //[HttpPost]
-        //public virtual ActionResult Cadastrar(TClient model)
-        //{
-        //    try
-        //    {
-        //        model.Password = TClient.HashPassword(model.PasswordString);
-        //        model.Save();
-        //        TPreference.SavePreferences(model);
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch (SimpleValidationException ex)
-        //    {
-        //        ViewBag.MostraSenha = true;
-        //        ViewBag.EnumProfileClient = EnumHelper.ListAll<ProfileClient>().ToSelectList(x => x, x => x.Description());
-        //        ViewBag.Category = TCategory.ListAll().ToSelectList(x => x.Id, x => x.Name);
-        //        return HandleViewException(model, ex);
-        //    }
-        //}
-
-        //public virtual ActionResult Editar(int id)
-        //{
-        //    var cliente = TClient.Load(id);
-        //    var preferenciasCliente = cliente.TPreferences.Select(x => x.Category.Id).ToList();
-        //    ViewBag.MostraSenha = false;
-        //    ViewBag.EnumProfileClient = EnumHelper.ListAll<ProfileClient>().ToSelectList(x => x, x => x.Description()); 
-        //    if (preferenciasCliente.Any())
-        //        ViewBag.Category = TCategory.List(x => !preferenciasCliente.Contains(x.Id)).ToSelectList(x => x.Id, x => x.Name);
-        //    else
-        //        ViewBag.Category = TCategory.ListAll().ToSelectList(x => x.Id, x => x.Name);
-        //    return View(cliente);
-        //}
-
-        //[HttpPost]
-        //public virtual ActionResult Editar(TClient model)
-        //{
-        //    try
-        //    {
-        //        model.Edit();
-        //        TPreference.SavePreferences(model);
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch (SimpleValidationException ex)
-        //    {
-        //        ViewBag.MostraSenha = false;
-        //        ViewBag.EnumProfileClient = EnumHelper.ListAll<ProfileClient>().ToSelectList(x => x, x => x.Description());
-        //        ViewBag.Category = TCategory.ListAll().ToSelectList(x => x.Id, x => x.Name);
-        //        return HandleViewException(model, ex);
-        //    }
-        //}
-        //public virtual ActionResult ListarPreferencia(int id)
-        //{
-        //    var preference = TCategory.Load(id);
-        //    return PartialView("_listar-preferencias", preference);
-        //}
-        //public virtual ActionResult Excluir(int id)
-        //{
-        //    var cliente = TClient.Load(id);
-        //    return PartialView("_excluir", cliente);
-        //}
-
-        //[HttpPost]
-        //public virtual ActionResult Excluir(int id, object diff)
-        //{
-        //    TPreference.Delete(x => x.Client.Id == id);
-        //    TClient.Delete(id);
-        //    return RedirectToAction("Index");
-        //}
-
 
         [HttpPost]
         public virtual ActionResult Login(object diff)

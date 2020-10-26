@@ -1,24 +1,36 @@
 ﻿@inherits ModelWebViewPage<TReservation>
-   @{var usuarioLogado = (TClient)ViewBag.Cliente;}
+@{var usuarioLogado = (TClient)ViewBag.Cliente;}
 <div class="row">
     @using (Html.BeginForm())
     {
         @*<div class="col-lg-12">
-            @this.Label(x => x.Client).Class("control-label").Value("Clientes:")
-            @this.AutoSelect(x => x.Client).Class("form-control").FirstOption("", "Selecione uma opção")
-        </div>*@
-    <div class="col-lg-12">
-        @this.Label(x => x.Itens).Class("control-label").Value("Filme:")
-        @this.AutoSelect(x => x.Itens).Class("form-control").FirstOption("", "Selecione uma opção")
-    </div>
+                @this.Label(x => x.Client).Class("control-label").Value("Clientes:")
+                @this.AutoSelect(x => x.Client).Class("form-control").FirstOption("", "Selecione uma opção")
+            </div>*@
         <div class="col-lg-12">
-            @foreach (var iten in Model.TItens)
-            {
-                @Html.Partial("_listar-filmes", iten.Movie)
-            }
+            @this.Label(x => x.Itens).Class("control-label").Value("Filme:")
+            @this.AutoSelect(x => x.Itens).Class("form-control").Attr("name", "Itensreserva").FirstOption("", "Selecione uma opção")
         </div>
-        <div class="col-lg-12 item">
+        <div class="offset1 col-lg-12 required" name="Itens">
+            <table class="table table-striped" id="table-itens">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Filme</th>
+                        <th>Quantidade</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody class="item">
+                    @foreach (var iten in Model.TItens)
+                    {
+                        @Html.Partial("_listar-filmes", iten.Movie)
+                    }
+                </tbody>
+            </table>
         </div>
+        @*<div class="required col-lg-12 item" name="Itens">
+        </div>*@
         <div class="col-lg-12">
             @this.Label(x => x.Withdraw).Class("control-label").Value("Retirar:")
             @this.DatePicker(x => x.Withdraw).Class("required form-control").Value(Model.Id == 0 ? DateTime.Now : Model.Withdraw)
@@ -42,17 +54,20 @@
 <script type="text/javascript">
     $(function () {
         $("form").validate();
-        $("select#Itens").change(function () {
-            var id = $(this).val();
-            $.post("@Url.Action(MVC.Cliente.Reservas.ListarFilmes())", { id: id }, function (data) {
-                $("div.item").append(data);
-                $("select#Itens option[value = " + id + "]").remove();
+        $("select#Itensreserva").change(function () {
+            var idValorSelecionado = $(this).val();
+            $.post("@Url.Action(MVC.Cliente.Reservas.ListarFilmes())", { id: idValorSelecionado }, function (data) {
+                //data é onde é "retornado" os dados da Action que foi feito o post ou get
+                $('#table-itens > tbody.item:last-child').append(data);
+                //Esse table itens não é necessariamente para a tag table (ou, a tabela), mas é o id da minha tabela e não ela mesma
+                $("select#Itensreserva option[value = " + idValorSelecionado + "]").remove();
             });
         });
+
         $("a.excluir-filmes").livequery("click", function () {
-            var id = $(this).parents("div.item-item").find("input.id-item").val();
-            $(this).parents("div.item-item").remove();
-            $("select#Itens").append("<option value=" + id + ">" + $(this).data("nome") + "</option>");
+            var idItemQueDesejoRemover = $(this).parents("tr").find("input.id-movie").val();
+            $(this).parents("tr").remove();
+            $("select#Itensreserva").append("<option value=" + idItemQueDesejoRemover + ">" + $(this).parents("tr").data("filme") + "</option>");
         });
 
     });

@@ -32,12 +32,7 @@ namespace Locadora.Web.Areas.Cliente.Controllers
             if (User.Identity.IsAuthenticated && username != null)
                 ViewBag.Cliente = username;
             else
-            {
-               
                 FormsAuthentication.SignOut();
-            }
-            //ViewBag.Alerta = TempData["Alerta"];
-            //ViewBag.Alerta = TempData["Alerta"];
         }
     }
 }

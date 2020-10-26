@@ -50,6 +50,7 @@ namespace Locadora.Services
             client.Email = model.Email;
             client.Telephone = model.Telephone;
             client.Login = model.Login;
+            client.Preference = model.Preference;
             client.Update();
         }
     }

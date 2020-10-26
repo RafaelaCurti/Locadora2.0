@@ -92,6 +92,7 @@
     <Compile Include="..\GlobalInfo.cs">
       <Link>Properties\GlobalInfo.cs</Link>
     </Compile>
+    <Compile Include="Page.cs" />
     <Compile Include="AuthorizationException.cs" />
     <Compile Include="Configurator.cs" />
     <Compile Include="Domain\ApplicationConfig.cs" />
