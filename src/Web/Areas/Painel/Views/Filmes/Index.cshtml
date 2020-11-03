@@ -1,127 +1,143 @@
-﻿@model List<TMovie>
+﻿@model Simple.Entities.Page<TMovie>
+@*@using Locadora.Web.Resources;*@
 @{
-    ViewBag.Title = "Index Painel";
+    ViewBag.Title = "Locadora - Cliente";
+    ViewBag.Title = "Index";
     Layout = "~/Areas/Painel/Views/Shared/_Layout.cshtml";
 }
+@section header
+{
+    @H.Stylesheet("msdropdown/dd.css")
+    @H.Script("jquery.dd.min.js")
+    @H.Script("jquery.blockui.min.js")
+    @H.Script("iCheck/jquery.icheck.min.js")
+    @H.Script("icheck-init.js")
+    @H.Stylesheet("icheck/square/green.css")
+    @H.Script("validation/jquery.validate.min.js")
+    @H.Script("validation/messages_pt_br.js")
+}
+
 <h2>
     Filmes
 </h2>
-<div class="row" style="margin: 30px 0; text-align: right">
-    <div class="col-lg-12 text-right">
-        <a class="btn btn-primary btn-lg" data-toggle="tooltip" title="Cadastrar"
-           href="@Url.Action(MVC.Painel.Filmes.Cadastrar())">
-            <i class="fas fa-plus"></i> Cadastrar
-        </a>
+<div class="row filtros">
+    <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="form-group">
+            @this.Label("Filme").Class("control-label").Value("Filme:")
+            <div class="input-group">
+                @this.TextBox("Filme").Class("form-control")
+                <span class="input-group-btn">
+                    <button class="btn btn-primary btn-action btn-buscar" type="button">
+                        <i class="fas fa-search">Pesquisar</i>
+                    </button>
+                </span>
+            </div>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-lg-12">
-        <table class="table table-bordered table-hover tablesorter">
-            <thead>
-                <tr>
-                    <th class="header">
-                        Código
-                    </th>
-                    <th class="header">
-                        Nome
-                    </th>
-                    <th class="header">
-                        Gêneros
-                    </th>
-                    <th class="header">
-                        Duração
-                    </th>
-                    <th class="header">
-                        Formato
-                    </th>
-                    <th class="header">
-                        Tipo
-                    </th>
-                    <th class="header">
-                        Ativo
-                    </th>
-                    <th class="header">
-                        Criado em
-                    </th>
-                    <th class="header">
-                        Estoque
-                    </th>
-                    <th class="header">
-                        Valor
-                    </th>
-                    <th class="header text-center">
-                        Ação
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model.Count > 0)
-                {
-                    foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @item.Code
-                            </td>
-                            <td>
-                                @item.Name
-                            </td>
-                            <td>
-                                @foreach (var genero in item.TMovieCategories)
-                                {
-                                    <span>- @genero.Category.Name</span>
-                                }
-                            </td>
-                            <td>
-                                @item.Duration
-                            </td>
-                            <td>
-                                @item.EnumFormatMovie.Description()
-                            </td>
-                            <td>
-                                @item.EnumTypeMovie.Description()
-                            </td>
-                            <td>
-                                @(item.IsActive ? "Sim" : "Não")
-                            </td>
-                            <td>
-                                @item.Date.DayMonthAndYear()
-                            </td>
-                            <td>
-                                @item.Value
-                            </td>
-                            <td>
-                                @item.Stock
-                            </td>
-                            <td class="text-center">
-                                <p>
-                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" title="Editar"
-                                       href="@Url.Action(MVC.Painel.Filmes.Editar(item.Id))">
-                                        <i class="fas fa-pencil"></i> Editar
-                                    </a>
-                                     
-                                    @if (!item.TItens.Any())
-                                    {
-                                        <button type="button" class="btn btn-danger btn-xs ajax-modal" data-toggle="tooltip" title="Excluir"
-                                                href="@Url.Action(MVC  .Painel.Filmes.Excluir(item.Id))">
-                                            <i class="fas fa-trash"></i> Excluir
-                                        </button>
-                                    }
-                                </p>
-                            </td>
-                        </tr>
+    <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="form-group">
+            @this.Label("Category").Class("control-label").Value("Categoria:")
+            <div class="input-group">
+                @this.AutoSelect("Category").Class("form-control").FirstOption("", "Selecione uma opção")
+                <span class="input-group-btn">
+                    <button class="btn btn-primary btn-action btn-buscar" type="button">
+                        <i class="fas fa-search">Pesquisar</i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+                @Html.Partial("_buscar", Model)
+            </div>
+        </div>
+    </div>
+    @*@Html.Partial("_blockUI")*@
+    <script type="text/javascript">
+    var ajaxRequest = null;
+    var paginaAtual = 1;
+
+    function Buscar(pagina) {
+        if (ajaxRequest != null) {
+            ajaxRequest.abort();
+            ajaxRequest = null;
+        }
+
+        var filme = $("#Filme").val();
+        var categoria = $("#Categoria").val();
+        var codigo = $("#Codigo").val();
+        var duracao = $("#Duracao").val();
+        var estoque = $("#Estoque").val();
+        var ativo = $("#Ativo").val();
+        //var valor = $("#Valor").val();
+        //var is  = $("#Valor").val();
+        var preferencia = $("#Preference").val();
+
+        $('table.table-bordered tbody').html("<tr><td class='text-center' colspan='15'><img src='' alt='loading' style='margin: 15px auto;'/></td></tr>");
+        $('.pagination').remove();
+        ajaxRequest = $.get("@Url.Action(MVC.Painel.Filmes.Buscar())", { pagina: pagina, filme: filme, categoria: categoria, codigo: codigo, duracao: duracao, estoque: estoque, ativo: ativo}, function (data) {
+            $('div.table-responsive').html(data);
+        });
+    }
+
+    $(function () {
+        $("button.btn-buscar").click(function () {
+            Buscar(1);
+        });
+
+        $("button.exportar").click(function (e) {
+            e.preventDefault();
+            var filme = $("#Filme").val();
+            var categoria = $("#Categoria").val();
+            var codigo = $("#Codigo").val();
+            var duracao = $("#Duracao").val();
+            var estoque = $("#Estoque").val();
+            var ativo = $("#Ativo").val();
+            window.location = '@Url.Action("Exportar", "Filmes", new { filme = "param1", categoria = "param2", codigo = "param3", duracao = "param4", estoque = "param5", ativo = "param6"})'.replace("param1", filme).replace("param2", categoria).replace("param3", codigo).replace("param4", duracao).replace("param5", estoque).replace("param6", ativo).replace(/amp;/g, "");
+        });
+
+        $(".btn-reenvia-email").livequery("click", function (e) {
+            e.preventDefault();
+            blockUI();
+            $.get($(this).prop('href'), function (data) {
+                unblockUI();
+                if (data.sucesso)
+                    addAlertToPage(data.sucesso, "success");
+                else
+                    addAlertToPage(data.erro, "error");
+            });
+        });
+
+        $(".check-availability").livequery(function () {
+            var check = $(this);
+            var url = $(this).attr("data-url");
+            $(this).rules("add", {
+                remote: {
+                    url: url,
+                    type: "post",
+                    beforeSend: function () {
+                        $(check).parent("div").find("i").remove();
+                        $(check).before("<i class='fa fa-spinner fa-pulse form-control-feedback'></i>");
+                    },
+                    data: {
+                        id: function () {
+                            var id = $("form.form-editar-login").find("#Id").val();
+                            return id != null && id != "" ? id : 0;
+                        },
+                        parametro: function () {
+                            return check.val();
+                        }
+                    },
+                    complete: function (data) {
+                        if (data.responseText == "true")
+                            $(check).parent("div").find("i").replaceWith("<i class='fa fa-check green form-control-feedback'></i>");
+                        else
+                            $(check).parent("div").find("i").replaceWith("<i class='fa fa-times red form-control-feedback'></i>");
                     }
                 }
-                else
-                {
-                    <tr>
-                        <td colspan="15" class="text-center">
-                            <strong>Nenhum registro encontrado</strong>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
-
+            });
+        });
+    });
+    </script>

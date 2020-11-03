@@ -42,11 +42,13 @@ namespace T4MVC.Cliente
                 public readonly string _Confirm = "_Confirm";
                 public readonly string _Error = "_Error";
                 public readonly string _Layout = "_Layout";
+                public readonly string _pagination = "_pagination";
             }
             public readonly string _alerta = "~/Areas/Cliente/Views/Shared/_alerta.cshtml";
             public readonly string _Confirm = "~/Areas/Cliente/Views/Shared/_Confirm.cshtml";
             public readonly string _Error = "~/Areas/Cliente/Views/Shared/_Error.cshtml";
             public readonly string _Layout = "~/Areas/Cliente/Views/Shared/_Layout.cshtml";
+            public readonly string _pagination = "~/Areas/Cliente/Views/Shared/_pagination.cshtml";
         }
     }
 

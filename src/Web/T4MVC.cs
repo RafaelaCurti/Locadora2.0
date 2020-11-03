@@ -31,6 +31,8 @@ public static partial class MVC
     public static ClienteClass Cliente { get { return s_Cliente; } }
     static readonly PainelClass s_Painel = new PainelClass();
     public static PainelClass Painel { get { return s_Painel; } }
+    static readonly ViewModelsClass s_ViewModels = new ViewModelsClass();
+    public static ViewModelsClass ViewModels { get { return s_ViewModels; } }
     public static Locadora.Web.Controllers.BaseController Base = new Locadora.Web.Controllers.T4MVC_BaseController();
     public static Locadora.Web.Controllers.HomeController Home = new Locadora.Web.Controllers.T4MVC_HomeController();
     public static Locadora.Web.Controllers.MailController Mail = new Locadora.Web.Controllers.T4MVC_MailController();
@@ -68,6 +70,11 @@ namespace T4MVC
         public Locadora.Web.Areas.Painel.Controllers.UsuariosController Usuarios = new Locadora.Web.Areas.Painel.Controllers.T4MVC_UsuariosController();
         public T4MVC.Painel.CadastroController Cadastro = new T4MVC.Painel.CadastroController();
         public T4MVC.Painel.SharedController Shared = new T4MVC.Painel.SharedController();
+    }
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public class ViewModelsClass
+    {
+        public readonly string Name = "ViewModels";
     }
 }
 

@@ -61,6 +61,12 @@ namespace Locadora.Web.Areas.Painel.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Buscar()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Buscar);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Editar()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Editar);
@@ -93,8 +99,9 @@ namespace Locadora.Web.Areas.Painel.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string Login = "Login";
             public readonly string Index = "Index";
+            public readonly string Buscar = "Buscar";
+            public readonly string Login = "Login";
             public readonly string Cadastrar = "Cadastrar";
             public readonly string Editar = "Editar";
             public readonly string ListarPreferencia = "ListarPreferencia";
@@ -104,8 +111,9 @@ namespace Locadora.Web.Areas.Painel.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string Login = "Login";
             public const string Index = "Index";
+            public const string Buscar = "Buscar";
+            public const string Login = "Login";
             public const string Cadastrar = "Cadastrar";
             public const string Editar = "Editar";
             public const string ListarPreferencia = "ListarPreferencia";
@@ -113,6 +121,14 @@ namespace Locadora.Web.Areas.Painel.Controllers
         }
 
 
+        static readonly ActionParamsClass_Buscar s_params_Buscar = new ActionParamsClass_Buscar();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Buscar BuscarParams { get { return s_params_Buscar; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Buscar
+        {
+            public readonly string model = "model";
+        }
         static readonly ActionParamsClass_Login s_params_Login = new ActionParamsClass_Login();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Login LoginParams { get { return s_params_Login; } }
@@ -166,6 +182,7 @@ namespace Locadora.Web.Areas.Painel.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _buscar = "_buscar";
                 public readonly string _excluir = "_excluir";
                 public readonly string _form = "_form";
                 public readonly string _listar_preferencias = "_listar-preferencias";
@@ -173,6 +190,7 @@ namespace Locadora.Web.Areas.Painel.Controllers
                 public readonly string editar = "editar";
                 public readonly string Index = "Index";
             }
+            public readonly string _buscar = "~/Areas/Painel/Views/Clientes/_buscar.cshtml";
             public readonly string _excluir = "~/Areas/Painel/Views/Clientes/_excluir.cshtml";
             public readonly string _form = "~/Areas/Painel/Views/Clientes/_form.cshtml";
             public readonly string _listar_preferencias = "~/Areas/Painel/Views/Clientes/_listar-preferencias.cshtml";
@@ -188,6 +206,29 @@ namespace Locadora.Web.Areas.Painel.Controllers
         public T4MVC_ClientesController() : base(Dummy.Instance) { }
 
         [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void BuscarOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Locadora.Web.Areas.ViewModels.ClientSearchViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Buscar(Locadora.Web.Areas.ViewModels.ClientSearchViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Buscar);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            BuscarOverride(callInfo, model);
+            return callInfo;
+        }
+
+        [NonAction]
         partial void LoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Locadora.Domain.Login model);
 
         [NonAction]
@@ -196,17 +237,6 @@ namespace Locadora.Web.Areas.Painel.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Login);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             LoginOverride(callInfo, model);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult Index()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            IndexOverride(callInfo);
             return callInfo;
         }
 

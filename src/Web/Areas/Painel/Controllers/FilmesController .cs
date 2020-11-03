@@ -1,6 +1,8 @@
 ﻿using Locadora.Domain;
 using Locadora.Helpers;
+using Locadora.Web.Areas.ViewModels;
 using Locadora.Web.Helpers;
+using Simple.Entities;
 using Simple.Validation;
 using Simple.Web.Mvc;
 using System;
@@ -18,8 +20,25 @@ namespace Locadora.Web.Areas.Painel.Controllers
     {
         public virtual ActionResult Index()
         {
-            var filmes = TMovie.ListAll().ToList();
-            return View(filmes);
+            ViewBag.Pagina = 1;
+            var buscar = new MovieSearchViewModel().ConvertToMovieSearch();
+            var filme = TMovie.Search(buscar);
+            ViewBag.Category = TCategory.ListAll().ToSelectList(x => x.Id, x => x.Name);
+            var total = TMovie.CountSearch(buscar);
+            var page = new Page<TMovie>(filme, total);
+            var filmeslistados = TMovie.ListAll().ToList();
+            return View(page);
+        }
+        public virtual ActionResult Buscar(MovieSearchViewModel model)
+        {
+            model.pagina = model.pagina ?? 1;
+            ViewBag.Pagina = model.pagina;
+            var buscar = model.ConvertToMovieSearch();
+            var filme = TMovie.Search(buscar);
+            var total = TMovie.CountSearch(buscar);
+            ViewBag.Category = TCategory.ListAll().ToSelectList(x => x.Id, x => x.Name);
+            var page = new Page<TMovie>(filme, total);
+            return PartialView("_buscar", page);
         }
 
         public virtual ActionResult Cadastrar()

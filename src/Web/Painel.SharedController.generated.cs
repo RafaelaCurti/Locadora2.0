@@ -42,11 +42,13 @@ namespace T4MVC.Painel
                 public readonly string _Confirm = "_Confirm";
                 public readonly string _Error = "_Error";
                 public readonly string _Layout = "_Layout";
+                public readonly string _pagination = "_pagination";
             }
             public readonly string _alerta = "~/Areas/Painel/Views/Shared/_alerta.cshtml";
             public readonly string _Confirm = "~/Areas/Painel/Views/Shared/_Confirm.cshtml";
             public readonly string _Error = "~/Areas/Painel/Views/Shared/_Error.cshtml";
             public readonly string _Layout = "~/Areas/Painel/Views/Shared/_Layout.cshtml";
+            public readonly string _pagination = "~/Areas/Painel/Views/Shared/_pagination.cshtml";
         }
     }
 

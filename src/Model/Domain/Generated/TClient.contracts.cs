@@ -3,6 +3,7 @@ using Locadora.Domain;
 using Simple.Services;
 using Locadora.Services;
 using System;
+using System.Collections.Generic;
 
 namespace Locadora.Domain
 {
@@ -26,6 +27,16 @@ namespace Locadora.Domain
         public virtual void Edit() 
         {
 			Service.Edit(this);
+		}
+
+        public static List<TClient> Search(ClientSearch clientSearch) 
+        {
+			return Service.Search(clientSearch);
+		}
+
+        public static Int32 CountSearch(ClientSearch clientSearch) 
+        {
+			return Service.CountSearch(clientSearch);
 		}
 
     }

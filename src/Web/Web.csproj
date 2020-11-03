@@ -189,6 +189,9 @@
     <Compile Include="Areas\Painel\Controllers\GenerosController.cs" />
     <Compile Include="Areas\Painel\Controllers\HomeController.cs" />
     <Compile Include="Areas\Painel\PainelAreaRegistration.cs" />
+    <Compile Include="Areas\ViewModels\MovieSearchViewModel.cs" />
+    <Compile Include="Areas\ViewModels\ReservationSearchViewModel.cs" />
+    <Compile Include="Areas\ViewModels\ClientSearchViewModel.cs" />
     <Compile Include="BaseController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -321,7 +324,6 @@
     <Content Include="Areas\Painel\Views\Home\Login.cshtml" />
     <Content Include="Areas\Painel\Views\Filmes\cadastrar.cshtml" />
     <Content Include="Areas\Painel\Views\Filmes\editar.cshtml" />
-    <Content Include="Areas\Painel\Views\Filmes\Index.cshtml" />
     <Content Include="Areas\Painel\Views\Filmes\_excluir.cshtml" />
     <Content Include="Areas\Painel\Views\Filmes\_form.cshtml" />
     <Content Include="Areas\Painel\Views\Generos\cadastrar.cshtml" />
@@ -374,7 +376,6 @@
     <Content Include="Areas\Cliente\Views\web.config" />
     <Content Include="Areas\Cliente\Views\Home\_form.cshtml" />
     <Content Include="Areas\Cliente\Views\Home\_listar-generos.cshtml" />
-    <Content Include="Areas\Cliente\Views\Clientes\_buscar.cshtml" />
     <Content Include="Areas\Cliente\Views\Clientes\_form.cshtml" />
     <Content Include="Areas\Cliente\Views\Reservas\_listar-filmes.cshtml" />
     <Content Include="Areas\Cliente\Views\Itens\_excluir.cshtml" />
@@ -395,6 +396,11 @@
     <Content Include="Areas\Cliente\Views\Clientes\cadastrar.cshtml" />
     <Content Include="Areas\Cliente\Views\Clientes\Index.cshtml" />
     <Content Include="Areas\Cliente\Views\Shared\_pagination.cshtml" />
+    <Content Include="Areas\Painel\Views\Clientes\_buscar.cshtml" />
+    <Content Include="Areas\Painel\Views\Shared\_pagination.cshtml" />
+    <Content Include="Areas\Painel\Views\Reservas\_buscar.cshtml" />
+    <Content Include="Areas\Painel\Views\Filmes\_buscar.cshtml" />
+    <Content Include="Areas\Painel\Views\Filmes\Index.cshtml" />
     <None Include="T4MVC.tt.settings.xml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

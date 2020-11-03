@@ -11,5 +11,5 @@ namespace Locadora.Domain
         public virtual List<TCategory> Category { get; set; }
         public virtual int[] Preference { get; set; }
         public virtual Boolean IsActive { get; set; }
-    }
+        }
 }

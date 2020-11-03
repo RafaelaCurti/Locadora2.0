@@ -3,6 +3,7 @@ using Locadora.Domain;
 using Simple.Services;
 using Locadora.Services;
 using System;
+using System.Collections.Generic;
 
 namespace Locadora.Services
 {
@@ -12,5 +13,7 @@ namespace Locadora.Services
         TClient Authenticate(Login login);
         Byte[] HashPassword(String password);
         void Edit(TClient model);
+        List<TClient> Search(ClientSearch clientSearch);
+        Int32 CountSearch(ClientSearch clientSearch);
     }
 }

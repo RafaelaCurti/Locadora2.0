@@ -1,13 +1,10 @@
 ﻿using Locadora.Domain;
-using Locadora.Helpers;
+using Locadora.Web.Areas.ViewModels;
 using Locadora.Web.Helpers;
+using Simple.Entities;
 using Simple.Validation;
 using Simple.Web.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Principal;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -16,6 +13,32 @@ namespace Locadora.Web.Areas.Painel.Controllers
     [RequiresAuthorization]
     public partial class ClientesController : BaseController
     {
+       public virtual ActionResult Index()
+        {
+            ViewBag.Pagina = 1;
+            ViewBag.MostraSenha = false;
+
+            var usuario = (TUser)ViewBag.Usuario;
+            var buscar = new ClientSearchViewModel().ConvertToClientSearch();
+            var clientes = TClient.Search(buscar);
+            var total = TClient.CountSearch(buscar);
+            var page = new Page<TClient>(clientes, total);
+            return View(page);
+        }
+        public virtual ActionResult Buscar(ClientSearchViewModel model)
+        {
+            model.pagina = model.pagina ?? 1;
+            ViewBag.Pagina = model.pagina;
+            // Preciso ver onde pega essa ViewBaf
+            var buscar = model.ConvertToClientSearch();
+            var clientes = TClient.Search(buscar);
+            var total = TClient.CountSearch(buscar);
+            ViewBag.EnumProfileClient = EnumHelper.ListAll<ProfileClient>().ToSelectList(x => x, x => x.Description());
+            ViewBag.Genero = TCategory.ListAll().ToSelectList(x => x.Id, x => x.Name);
+            var page = new Page<TClient>(clientes, total);
+            return PartialView("_buscar", page);
+        }
+
         [HttpPost]
         public virtual ActionResult Login(Login model)
         {
@@ -32,11 +55,6 @@ namespace Locadora.Web.Areas.Painel.Controllers
                 //ViewBag.Alerta = new Alert("error", "Usuário ou senha inválida");
                 return View(model);
             }
-        }
-        public virtual ActionResult Index()
-        {
-            var clientes = TClient.ListAll().ToList();
-            return View(clientes);
         }
         public virtual ActionResult Login()
         {

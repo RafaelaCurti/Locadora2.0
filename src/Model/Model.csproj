@@ -92,6 +92,9 @@
     <Compile Include="..\GlobalInfo.cs">
       <Link>Properties\GlobalInfo.cs</Link>
     </Compile>
+    <Compile Include="Domain\ClassSearch\ClientSearch.cs" />
+    <Compile Include="Domain\ClassSearch\MovieSearch.cs" />
+    <Compile Include="Domain\ClassSearch\ReservationSearch.cs" />
     <Compile Include="Page.cs" />
     <Compile Include="AuthorizationException.cs" />
     <Compile Include="Configurator.cs" />
