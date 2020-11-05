@@ -3,28 +3,30 @@
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="col-md-12" id="centralizar-login">
+    <h2>Login</h2>
+    <br />
 
-<h2>Login</h2>
-
-<div class="row">
-    @using (Html.BeginForm())
-    {
-        <div class="col-lg-12">
-            @this.Label(x => x.Username).Class("control-label").Value("Login:")
-            @this.TextBox(x => x.Username).Class("required form-control").Required(true)
-        </div>
-        <div class="col-lg-12">
-            @this.Label(x => x.Password).Class("control-label").Value("Senha:")
-            @this.Password(x => x.Password).Class("required form-control").Required(true)
-        </div>
-        <div class="col-md-12 text-center" style="margin-top: 15px;">
-            @*<button type="submit" class="btn btn-primary btn-lg">
-            <i class="fas fa-check"></i> Entrar
-        </button>*@
-            <button class="btn btn-lg btn-login btn-block" type="submit">Entrar</button>
-            <br />
-            <br />
-            <a href='@Url.Action(MVC.Painel.Usuarios.Cadastrar())'> Não tem conta? Cadastrar</a>
-        </div>
-    }
+    <div class="row">
+        @using (Html.BeginForm())
+        {
+            <div class="col-lg-12">
+                @this.Label(x => x.Username).Class("control-label font-wr").Value("Login:")
+                @this.TextBox(x => x.Username).Class("required form-control").Required(true)
+            </div>
+            <div class="col-lg-12">
+                @this.Label(x => x.Password).Class("control-label font-wr").Value("Senha:")
+                @this.Password(x => x.Password).Class("required form-control").Required(true)
+            </div>
+            <div class="col-md-12 text-center" style="margin-top: 15px;">
+                @*<button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-check"></i> Entrar
+                    </button>*@
+                <button class="btn btn-lg btn-login btn-block" type="submit">Entrar</button>
+                <br />
+                <br />
+                <a href='@Url.Action(MVC.Painel.Usuarios.Cadastrar())'> Não tem conta? Cadastrar</a>
+            </div>
+        }
+    </div>
 </div>

@@ -17,8 +17,8 @@
     @H.Script("validation/messages_pt_br.js")
 }
 
-<h2>
-    Clientes
+<h2 class="pesquisa" id="pesquisa">
+   Pesquisa
 </h2>
 <div class="row filtros">
     <div class="col-lg-3 col-md-4 col-sm-6">
@@ -36,7 +36,7 @@
     </div>
     <div class="col-lg-3 col-md-4 col-sm-6">
         <div class="form-group">
-            @this.Label("Email").Class("control-label").Value("Email:")
+            @this.Label("Email").Class("control-label pesquisa-barra").Value("Email:")
             <div class="input-group">
                 @this.EmailBox("Email").Class("form-control")
                 <span class="input-group-btn">
@@ -62,7 +62,7 @@
         </div>*@
     <div class="col-lg-3 col-md-4 col-sm-6">
         <div class="form-group">
-            @this.Label("Login").Class("control-label").Value("Login:")
+            @this.Label("Login").Class("control-label pesquisa-barra").Value("Login:")
             <div class="input-group">
                 @this.EmailBox("Login").Class("form-control")
                 <span class="input-group-btn">
@@ -119,6 +119,7 @@
                 @Html.Partial("_listar-preferencias", preference.Category)
             }
         </div>*@
+    <br />
     <div class="row">
         <div class="col-lg-12">
             <div class="table-responsive">

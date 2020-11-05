@@ -1,0 +1,134 @@
+/* ===== Primary Styles ========================================================
+   Author:
+   ========================================================================== */
+
+img.logoImagem {
+    width: 50%;
+    /*height: 40px;*/
+}
+
+#footer-layout {
+    background-color: #fff;
+    padding: 20px;
+}
+
+.navbar-inner {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    background-color: #fff !important;
+    background-image: -moz-linear-gradient(top, #fff, #fff) !important;
+    background-image: -ms-linear-gradient(top, #fff, #fff) !important;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#fff)) !important;
+    background-image: -webkit-linear-gradient(top, #fff, #fff) !important;
+    background-image: -o-linear-gradient(top, #fff, #fff) !important;
+    background-image: linear-gradient(top, #fff, #fff) !important;
+    background-repeat: repeat-x !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff', endColorstr='#fff', GradientType=0) !important;
+    -webkit-border-radius: 4px !important;
+    -moz-border-radius: 4px !important;
+    border-radius: 4px !important;
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25),inset 0 -1px 0 rgba(0, 0, 0, 0.1) !important;
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25),inset 0 -1px 0 rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25),inset 0 -1px 0 rgba(0, 0, 0, 0.1) !important;
+}
+
+.navbar .nav {
+    position: relative;
+    left: 0;
+    display: block;
+    float: left;
+    margin: 90px 10px 0 0;
+    font-size: 24px;
+/*depois escolher a font family padrão do logo*/
+}
+
+.navbar .nav > li {
+    display: block;
+    float: left;
+}
+
+    .navbar .nav > li > a {
+        float: none;
+        padding: 10px 10px 11px;
+        line-height: 19px;
+        color: #2c4055;
+        text-decoration: none;
+        text-shadow: 0 -1px 0 #2c4055;
+    }
+
+        .navbar .nav > li > a:hover {
+            background-color: transparent;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+.navbar .nav .active > a, .navbar .nav .active > a:hover {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #222222;
+}
+
+body {
+    margin: 0;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #586781;
+    background-color: black;
+}
+
+#centralizar-login {
+    text-align: center;
+    color: white;
+    padding: 0;
+    margin: 0;
+}
+.font-wr {
+    color: #358fd5;
+}
+.login-titulo {
+    font-size: 14px;
+}
+.container .titulo-pagina {
+    font-size: 30px;
+    color: #333333;
+}
+h2 {
+    font-size: 30px !important;
+    line-height: 36px;
+    color: #358fd5 !important;
+}
+th .header {
+    color: aquamarine !important;
+    font-size: medium;
+
+}
+p .footer-personalizado ! {
+    color: black;
+    text-align: center !important;
+}
+p {
+    text-align: center !important;
+}
+
+.pagination .disabled span, .pagination .disabled a, .pagination .disabled a:hover {
+    color: #a3bfee !important;
+    background-color: transparent;
+    cursor: default;
+}
+.pagination a:hover, .pagination .active a {
+    background-color: #a3bfee !important;
+}
+h2 .pesquisa #pesquisa {
+    text-align: center !important;
+}
+.row filtros {
+    text-align: center !important;
+}
+
+.pesquisa-barra {
+    color: #a3bfee;
+}
+input #Client .required form-control {
+    width: 10rem;
+}

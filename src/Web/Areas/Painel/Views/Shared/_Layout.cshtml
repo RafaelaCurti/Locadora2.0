@@ -1,10 +1,6 @@
-﻿<!doctype html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js" lang="en">
-<!--<![endif]-->
+﻿
+<!doctype html>
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -15,16 +11,17 @@
     @H.Stylesheet("Bootstrap/bootstrap.min.css")
     <style>
         body {
-            padding-top: 60px;
-            padding-bottom: 40px;
+            padding-top: 160px;
+            padding-bottom: 100px;
         }
     </style>
     @H.Stylesheet("bootstrap/bootstrap-responsive.min.css")
-    @H.Stylesheet("css/style.css")
     @H.Stylesheet("css/toastr.css")
     @H.Script("jquery-1.7.2.min.js")
     @H.Script("modernizr-2.5.3-respond-1.1.0.min.js")
     @RenderSection("header", required: false)
+
+    @H.Stylesheet("css/bootstrap-custom.css")
 </head>
 <body>
     <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
@@ -33,17 +30,18 @@
             <div class="container">
                 <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                     <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-                </a><a class="brand" href="@Url.Action(MVC.Home.Index())">Locadora</a>
+                </a>
+                <a class="brand" href="@Url.Action(MVC.Painel.Usuarios.Index())">
+                    <img class="logoImagem" src="~/Content/img/LocaFilme-sem-fundo.png" alt="Logo Locadora" />
+                </a>
                 <div class="nav-collapse">
                     <ul class="nav">
-                        <li class="active"><a href="@Url.Action(MVC.Painel.Home.Index())">Home</a></li>
                         <li><a href="@Url.Action(MVC.Painel.Filmes.Index())">Filmes</a></li>
-                        <li><a href="@Url.Action(MVC.Painel.Generos.Index())">Gêneros</a></li>
-                        <li><a href="@Url.Action(MVC.Painel.Clientes.Index())">Clientes</a></li>
+                        <li><a href="@Url.Action(MVC.Painel.Livros.Index())">Livros</a> </li>
+                        <li><a href="@Url.Action(MVC.Painel.Clientes.Index())">Clientes</a> </li>
                         <li><a href="@Url.Action(MVC.Painel.Reservas.Index())">Reservas</a></li>
-                        <li><a href="@Url.Action(MVC.Painel.Usuarios.Index())">Usuários</a></li>
-                        <li><a href="@Url.Action(MVC.Painel.Livros.Index())">Livros</a></li>
-                        <li><a href="@Url.Action(MVC.Painel.Usuarios.Logout())">Logout</a></li>
+                        <li><a href="@Url.Action(MVC.Painel.Usuarios.Index())">Usuários</a> </li>
+                        <li><a href="@Url.Action(MVC.Painel.Usuarios.Logout())">Sair</a> </li>
                     </ul>
                 </div>
             </div>
@@ -52,11 +50,11 @@
     <div class="container">
         @RenderBody()
     </div>
-    <hr>
+    @*<hr>*@
     <div id="modal"></div>
     @Html.Partial("_alerta")
-    <footer>
-        <p>
+    <footer class="navbar navbar-fixed-bottom bg-info" id="footer-layout">
+        <p class="footer-personalizado">
             &copy; Company 2020
         </p>
     </footer>

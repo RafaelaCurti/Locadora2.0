@@ -183,7 +183,7 @@ namespace Links
             public const string UrlPath = "~/Content/css";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(UrlPath); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
-            public static readonly string style_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/style.min.css") ? Url("style.min.css") : Url("style.css");
+            public static readonly string bootstrap_custom_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/bootstrap-custom.min.css") ? Url("bootstrap-custom.min.css") : Url("bootstrap-custom.css");
             public static readonly string toastr_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/toastr.min.css") ? Url("toastr.min.css") : Url("toastr.css");
         }
     
@@ -194,6 +194,7 @@ namespace Links
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
             public static readonly string glyphicons_halflings_white_png = Url("glyphicons-halflings-white.png");
             public static readonly string glyphicons_halflings_png = Url("glyphicons-halflings.png");
+            public static readonly string LocaFilme_sem_fundo_png = Url("LocaFilme-sem-fundo.png");
         }
     
     }
@@ -255,7 +256,7 @@ namespace Links
             {
                 public static class Assets
                 {
-                    public static readonly string style_css = T4MVCHelpers.ProcessAssetPath("~/Content/css/style.css");
+                    public static readonly string bootstrap_custom_css = T4MVCHelpers.ProcessAssetPath("~/Content/css/bootstrap-custom.css");
                     public static readonly string toastr_css = T4MVCHelpers.ProcessAssetPath("~/Content/css/toastr.css");
                 }
             }
